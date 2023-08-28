@@ -35,16 +35,17 @@ Cypress.Commands.add('login', (email, password) => {
     cy.contains("Submit").click();
 });
 
-Cypress.Commands.add('addBook', (tittle, description, fileCover, fileBook, authors) => { 
+Cypress.Commands.add('addBook', (tittle, description, authors) => { 
     
-    cy.get('#title').type(tittle);
+    if (tittle) {
+        cy.get("#title").type(tittle);
+      }
+    if (description) {
+        cy.get("#description").type(description);
+      }
     
-    cy.get('#description').type(description);
-    
-    cy.get('#fileCover').attachFile(fileCover);
-    
-    cy.get('#fileBook').attachFile(fileBook)
-
-    cy.get('#authors').type(authors);
+    if (authors) {
+        cy.get("#authors").type(authors);
+      }
    
 });

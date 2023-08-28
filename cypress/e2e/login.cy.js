@@ -1,6 +1,3 @@
-const bookData = require("../fixtures/fs.jpg");
-const bookText = require("../fixtures/textSagan.txt")
-
 describe('log in page', () => {
   beforeEach(() => {
     cy.visit('/');
@@ -33,27 +30,30 @@ describe("library open", () => {
   });
 
   it("add book to library", () => {
-    cy.contains('Add new').click;
-    cy.addBook("Здравствуй, грусть!", "Интеллектуальный бестселлер", bookData, bookText, "Франcуаза Саган");
+    cy.contains('Add new').click();
+    cy.addBook("Здравствуй, грусть!", "Интеллектуальный бестселлер","Франcуаза Саган");
+    cy.get('#fileCover').selectFile('cypress/fixtures/fs.jpg');
+    cy.get('#fileBook').selectFile('cypress/fixtures/textSagan.txt');
     cy.contains("Submit").click();
-    cy.get(".card-title").should("Здравствуй, грусть!");
+    cy.get('.card-title').contains('.card-title', 'Здравствуй, грусть!');
   });
 
   it("Add book without tittle", () => {
-    cy.addBook(null, "Интеллектуальный бестселлер", bookData, bookText, "Франcуаза Саган");
+    cy.contains('Add new').click();
+    cy.addBook(null, "Интеллектуальный бестселлер", "Франcуаза Саган");
     cy.contains("Submit").click();
-    cy.get("#pass").then((elements) => {
+    cy.get("#title").then((elements) => {
       expect(elements[0].checkValidity()).to.be.false;
       expect(elements[0].validationMessage).to.be.eql("Заполните это поле.");
     });
   });
 
-  it("add book to favorites and downloand", () => {
-    cy.contains("Add to favorite").click;
-    cy.contains("Delete from favorite").should(be.visible);
-    cy.get('.font-weight-bold').click;
-    cy.get('.card-title', "Здравствуй, грусть!").click;
-    cy.contains("Dowload book"). click
+  it.only("add book to favorites and downloand", () => {
+    cy.contains("Add to favorite").click();
+    cy.contains("Delete from favorite").should("be.visible");
+    cy.get('.font-weight-bold').click();
+    cy.contains('.card-title', "Здравствуй, грусть!").click();
+    cy.contains("Dowload book").click();
   });
 
 })

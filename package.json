@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cy:mobile:headed": "npx cypress run -b chrome --headed --config-file cypress2.config.js",
+    "cy:mobile:headless": "npx cypress run -b chrome --config-file cypress2.config.js",
+    "cy:laptop:headed": "npx cypress run -b chrome --headed --config-file cypress2.config.js",
+    "cy:laptop:headless": "npx cypress run -b chrome --config-file cypress2.config.js"
   },
   "keywords": [],
   "author": "",
